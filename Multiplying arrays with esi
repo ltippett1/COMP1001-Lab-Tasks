@@ -1,0 +1,36 @@
+; A simple example adding two numbers.
+.386  ; Specify instruction set
+.model flat, stdcall  ; Flat memory model, std. calling convention
+.stack 4096 ; Reserve stack space
+ExitProcess PROTO, dwExitCode: DWORD  ; Exit process prototype
+
+
+
+.data ; data segment
+
+; define your variables here
+
+array DWORD 5,10,15,20 ; this is the array of DWORD
+
+.code ; code segment
+
+
+main PROC ; main procedure
+
+; write your assembly code here
+   
+   mov ecx, 8 ; multipler
+   mov esi, 0 ; index
+
+update: ; the label for looping 
+    mov eax, [array + TYPE array * esi]
+    mul ecx
+    mov [array + TYPE array * esi], eax
+    inc esi ; increments esi each time 
+    cmp esi, 4 ' compare esi with 4 to see if we have processed all 4 elements
+    jne update ; if esi hasn't then go back to start of the loop
+
+    INVOKE ExitProcess, 0 ; call exit function
+
+main ENDP ; exit main procedure
+END main  ; stop assembling 
