@@ -1,0 +1,46 @@
+; A simple example adding two numbers.
+.386  ; Specify instruction set
+.model flat, stdcall  ; Flat memory model, std. calling convention
+.stack 4096 ; Reserve stack space
+ExitProcess PROTO, dwExitCode: DWORD  ; Exit process prototype
+
+
+
+.data ; data segment
+
+; define your variables here
+
+array DWORD 5,10,15,20 ; this is the array of DWORD
+
+.code ; code segment
+
+
+main PROC ; main procedure
+
+; write your assembly code here
+
+;First element
+    mov ecx, 8 ; load the multipler in ecx register
+    mov eax, [array + TYPE array * 0] ; load the multiplicand 
+    mul ecx ; multiply, do eax x ecx and store result into eax. The product fits in the 32 bit eax register, so ignore the contents of the most significant register of the product
+    mov [array + TYPE array * 0], eax ; store the product into the 1st array's element
+
+;Second element
+    mov eax, [array + TYPE array * 1]
+    mul ecx
+    mov [array + TYPE array * 1], eax
+
+;Third element
+    mov eax, [array + TYPE array * 2]
+    mul ecx
+    mov [array + TYPE array * 2], eax
+
+;Forth element
+    mov eax, [array + TYPE array * 3]
+    mul ecx
+    mov [array + TYPE array * 3], eax
+
+    INVOKE ExitProcess, 0 ; call exit function
+
+main ENDP ; exit main procedure
+END main  ; stop assembling 
